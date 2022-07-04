@@ -21,7 +21,7 @@ namespace frontend
         {
             textBox1.Text = "Performing request...";
             ServiceReference2.UserSoapClient client = new ServiceReference2.UserSoapClient(ServiceReference2.UserSoapClient.EndpointConfiguration.UserSoap);
-            var result = client.GetUserByAsync("123456789").Result;
+            var result = await client.GetUserByAsync("123456789");
             textBox1.Text = result.Body.GetUserByResult;
         }
     }
