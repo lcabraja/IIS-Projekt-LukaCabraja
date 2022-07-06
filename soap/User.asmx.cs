@@ -21,6 +21,7 @@ namespace soap
         public string GetUserBy(string id)
         {
             return $"UserName [{id}]";
+            soap.Client.RestClient
         }
     }
 }

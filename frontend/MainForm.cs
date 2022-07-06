@@ -1,28 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace frontend
 {
     public partial class MainForm : Form
     {
+        private ServiceReference2.UserSoapClient _soapClient;
+        private api.Client.IRestClient _restClient;
+
         public MainForm()
         {
             InitializeComponent();
+            _soapClient = new ServiceReference2.UserSoapClient(ServiceReference2.UserSoapClient.EndpointConfiguration.UserSoap);
+            _restClient = new api.Client.RestClient("http://localhost:5050/", new HttpClient());
         }
 
         private async void BtnExecuteSoapRequest_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "Performing request...";
-            ServiceReference2.UserSoapClient client = new ServiceReference2.UserSoapClient(ServiceReference2.UserSoapClient.EndpointConfiguration.UserSoap);
-            var result = await client.GetUserByAsync("123456789");
-            textBox1.Text = result.Body.GetUserByResult;
+            soapBox.Text = "Performing request...";
+            try
+            {
+                var result = await _soapClient.GetUserByAsync(tbSoapParameter.Text);
+                soapBox.Text = result.Body.GetUserByResult;
+            }
+            catch (Exception ex)
+            {
+                soapBox.Text = ex.Message;
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private async void BtnExecuteRestRequest_Click(object sender, EventArgs e)
+        {
+            var users = (await _restClient.UserAllAsync()).Select(u => (model.User)u);
+            restBox.Text = users.Select(u => u.ToString()).Aggregate("", (c, n) => $"{c}\n{n}");
         }
     }
 }
