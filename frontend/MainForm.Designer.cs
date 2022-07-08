@@ -86,7 +86,13 @@ namespace frontend
             // 
             // cbRestContentType
             // 
+            this.cbRestContentType.DisplayMember = "application/json";
             this.cbRestContentType.FormattingEnabled = true;
+            this.cbRestContentType.Items.AddRange(new object[] {
+            "application/json",
+            "application/xml",
+            "text/json",
+            "text/xml"});
             this.cbRestContentType.Location = new System.Drawing.Point(390, 70);
             this.cbRestContentType.Name = "cbRestContentType";
             this.cbRestContentType.Size = new System.Drawing.Size(154, 23);

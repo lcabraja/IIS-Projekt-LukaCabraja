@@ -17,7 +17,8 @@ namespace frontend
             soapBox.Text = "Performing request...";
             try
             {
-                var result = await _soapClient.GetUserByAsync(tbSoapParameter.Text);
+                //var result = await _soapClient.GetUserByAsync(tbSoapParameter.Text);
+                var result = await _soapClient.GetUserByAsync("lcabraja-id");
                 soapBox.Text = result.Body.GetUserByResult;
             }
             catch (Exception ex)

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
 
@@ -16,12 +20,22 @@ namespace soap
     // [System.Web.Script.Services.ScriptService]
     public class User : System.Web.Services.WebService
     {
-
         [WebMethod]
-        public string GetUserBy(string id)
+        public string GetUserBy(string id) => MakeRequest(id);
+
+        private string MakeRequest(string userid)
         {
-            return $"UserName [{id}]";
-            soap.Client.RestClient
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create($"http://localhost:5050/api/User/{userid}");
+            // access req.Headers to get/set header values before calling GetResponse. 
+            // req.CookieContainer allows you access cookies.
+
+            var response = req.GetResponse();
+            string webcontent;
+            using (var strm = new StreamReader(response.GetResponseStream()))
+            {
+                webcontent = strm.ReadToEnd();
+                return webcontent;
+            }
         }
     }
 }

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "frontend", "frontend\fronte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "soap", "soap\soap.csproj", "{E573AB64-D5AC-4E35-B40F-43ACC40F75EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api", "api\api.csproj", "{09D642A0-B537-4458-AF1B-8DDAB28867B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "api", "api\api.csproj", "{09D642A0-B537-4458-AF1B-8DDAB28867B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "model", "model\model.csproj", "{129F8599-9108-43F4-A624-1D1117E1E9C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "model", "model\model.csproj", "{129F8599-9108-43F4-A624-1D1117E1E9C7}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "xml-rpc", "xml-rpc\xml-rpc.njsproj", "{27C8464F-627C-465F-BE79-CC8519E0047D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{129F8599-9108-43F4-A624-1D1117E1E9C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{129F8599-9108-43F4-A624-1D1117E1E9C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{129F8599-9108-43F4-A624-1D1117E1E9C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C8464F-627C-465F-BE79-CC8519E0047D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C8464F-627C-465F-BE79-CC8519E0047D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C8464F-627C-465F-BE79-CC8519E0047D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C8464F-627C-465F-BE79-CC8519E0047D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
