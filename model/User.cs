@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace model
 {
+    [DataContract]
     public class User
     {
+        [DataMember(Order = 0)]
         public string ID { get; set; }
+        [DataMember(Order = 1)]
         public string Username { get; set; }
+        [DataMember(Order = 2)]
         public string PasswordHash { get; set; }
+        [DataMember(Order = 3)]
         public List<Image> Images { get; set; }
         public override bool Equals(object obj)
         {

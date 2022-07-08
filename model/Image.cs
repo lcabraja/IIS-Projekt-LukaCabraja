@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace model
 {
+    [DataContract]
     public class Image
     {
+        [DataMember(Order = 0)]
         public string ResourceTitle { get; set; }
+        [DataMember(Order = 1)]
         public string ResourceURL { get; set; }
+        [DataMember(Order = 2)]
         public bool IsFavorite { get; set; }
 
         public override bool Equals(object obj)

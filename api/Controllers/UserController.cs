@@ -1,9 +1,11 @@
 ﻿using model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace api.Controllers
 {
+    [Authorize("BasicAuthentication")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

@@ -62,6 +62,13 @@ namespace api
                             IsFavorite = false
                         }
                     }
+                },
+                new User
+                {
+                    ID = "soapuser-id",
+                    Username = "soapuser",
+                    PasswordHash = "soappassword",
+                    Images = new List<Image>()
                 }
             };
         }
