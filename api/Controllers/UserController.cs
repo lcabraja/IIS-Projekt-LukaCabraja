@@ -2,25 +2,30 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using api.Model;
+using api.Auth;
 
 namespace api.Controllers
 {
-    [Authorize("BasicAuthentication")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
         private List<User> users;
+        private readonly IJwtAuth jwtAuth;
 
-        public UserController(List<User> users)
+        public UserController(List<User> users, IJwtAuth jwtAuth)
         {
             this.users = users;
+            this.jwtAuth = jwtAuth;
         }
 
         [HttpGet]
         public List<User> Get() 
             => users.GetRange(0, System.Math.Min(50, users.Count));
 
+        [AllowAnonymous]
         [HttpGet("{userid}")]
         public User Get(string userid) 
             => users.Find(u => u.ID.Equals(userid));
@@ -54,7 +59,16 @@ namespace api.Controllers
             {
                 Response.StatusCode = 404;
             }
+        }
 
+        [AllowAnonymous]
+        [HttpPost("authentication")]
+        public IActionResult Authentication([FromBody] UserCredential userCredential)
+        {
+            var token = jwtAuth.Authentication(userCredential.Username, userCredential.Password, users);
+            if (token == null)
+                return Unauthorized();
+            return Ok(token);
         }
     }
 }

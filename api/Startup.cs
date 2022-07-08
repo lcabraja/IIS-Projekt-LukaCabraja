@@ -7,16 +7,17 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using api.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using api.Auth;
 
 namespace api
 {
     public class Startup
     {
         private List<User> users;
+        private const string encriptionKey = "MFMCAQEwBQYDK2VwBCIEIJtjfw1TZqX4nkEcT9FhmCa23J9QEmnblvPNmxXl6oDSoSMDIQBmBAUJ2cQs238elOEWGhTKU+mYyiUedCaHAZm9N1P67g==";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -38,12 +39,25 @@ namespace api
                     opts.ReturnHttpNotAcceptable = true;
                 });
             services.AddSingleton(users);
-            services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
-            services.AddAuthorization(options =>
+            services.AddSingleton<IJwtAuth>(new api.Auth.Auth(encriptionKey));
+
+            services.AddAuthentication(x =>
             {
-                options.AddPolicy("BasicAuthentication", new AuthorizationPolicyBuilder
-                    ("BasicAuthentication").RequireClaim(ClaimTypes.Name).Build());
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(encriptionKey))
+                };
             });
+
 
             services.AddSwaggerGen(c =>
             {
@@ -66,6 +80,8 @@ namespace api
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
