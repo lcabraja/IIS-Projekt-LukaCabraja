@@ -41,17 +41,7 @@ namespace api.Controllers
         [HttpPost]
         public void Post(User user)
         {
-            var index = users.FindIndex(u => u.Equals(user));
-            if (index != -1)
-            {
-                users[index] = user;
-                Response.StatusCode = 200;
-            }
-            else
-            {
-                users.Add(user);
-                Response.StatusCode = 201;
-            }
+            AddOrUpdateUser(user);
         }
 
         private static readonly string RNG = "<element name=\"User\" xmlns=\"http://relaxng.org/ns/structure/1.0\" datatypeLibrary=\"http://www.w3.org/2001/XMLSchema-datatypes\" ns=\"http://schemas.datacontract.org/2004/07/model\"><element name=\"ID\"><text /></element><element name=\"Username\"><text /></element><element name=\"PasswordHash\"><text /></element><element name=\"Images\"><zeroOrMore><element name=\"Image\"><element name=\"ResourceTitle\"><text /></element><element name=\"ResourceURL\"><text /></element><element name=\"IsFavorite\"><text /></element></element></zeroOrMore></element></element>";
@@ -61,12 +51,13 @@ namespace api.Controllers
         public string ValidateAgainstRNG([FromBody] XElement xmldata)
         {
             _validator.SetInstance(xmldata.ToString());
-            if (!string.IsNullOrEmpty(_validator.FirstError))
+            if (string.IsNullOrEmpty(_validator.FirstError))
             {
-                Response.StatusCode = 400;
-                return _validator.FirstError;
+                AddOrUpdateUser(UserFromXML(xmldata));
+                return null;
             }
-            return null;
+            Response.StatusCode = 400;
+            return _validator.FirstError;
         }
 
         private static readonly string XSD = "<xs:schema attributeFormDefault=\"unqualified\" elementFormDefault=\"qualified\" targetNamespace=\"http://schemas.datacontract.org/2004/07/model\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"><xs:element name=\"User\"><xs:complexType><xs:sequence><xs:element type=\"xs:string\" name=\"ID\"/><xs:element type=\"xs:string\" name=\"Username\"/><xs:element type=\"xs:string\" name=\"PasswordHash\"/><xs:element name=\"Images\"><xs:complexType><xs:sequence><xs:element name=\"Image\" maxOccurs=\"unbounded\" minOccurs=\"0\"><xs:complexType><xs:sequence><xs:element type=\"xs:string\" name=\"ResourceTitle\"/><xs:element type=\"xs:string\" name=\"ResourceURL\"/><xs:element type=\"xs:string\" name=\"IsFavorite\"/></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:schema>";
@@ -85,12 +76,13 @@ namespace api.Controllers
                 hasErrors = true;
             });
 
-            if (hasErrors)
+            if (!hasErrors)
             {
-                Response.StatusCode = 400;
-                return errorMessage;
+                AddOrUpdateUser(UserFromXML(xmldata));
+                return null;
             }
-            return null;
+            Response.StatusCode = 400;
+            return errorMessage;
         }
 
         private void SetupXsdValidator()
@@ -121,6 +113,31 @@ namespace api.Controllers
             if (token == null)
                 return Unauthorized();
             return Ok(token);
+        }
+
+        private static User UserFromXML(XElement xmldata)
+        {
+            while (xmldata.HasAttributes)
+            {
+                xmldata.RemoveAttributes();
+            }
+            User user = Deserializer.Deserialize<User>(xmldata.ToString().Replace("xmlns=\"http://schemas.datacontract.org/2004/07/model\"", ""));
+            return user;
+        }
+
+        private void AddOrUpdateUser(User user)
+        {
+            var index = users.FindIndex(u => u.Equals(user));
+            if (index != -1)
+            {
+                users[index] = user;
+                Response.StatusCode = 200;
+            }
+            else
+            {
+                users.Add(user);
+                Response.StatusCode = 201;
+            }
         }
     }
 }
