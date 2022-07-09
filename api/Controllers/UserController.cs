@@ -47,8 +47,7 @@ namespace api.Controllers
             AddOrUpdateUser(user);
         }
 
-        private static readonly string RNG = "<element name=\"User\" xmlns=\"http://relaxng.org/ns/structure/1.0\" datatypeLibrary=\"http://www.w3.org/2001/XMLSchema-datatypes\" ns=\"http://schemas.datacontract.org/2004/07/model\"><element name=\"ID\"><text /></element><element name=\"Username\"><text /></element><element name=\"PasswordHash\"><text /></element><element name=\"Images\"><zeroOrMore><element name=\"Image\"><element name=\"ResourceTitle\"><text /></element><element name=\"ResourceURL\"><text /></element><element name=\"IsFavorite\"><text /></element></element></zeroOrMore></element></element>";
-        private Validator _validator = new("", RNG);
+        private readonly Validator _validator = new("", model.User.RNG);
 
         [HttpPost("rng")]
         public string ValidateAgainstRNG([FromBody] XElement xmldata)
@@ -63,7 +62,6 @@ namespace api.Controllers
             return _validator.FirstError;
         }
 
-        private static readonly string XSD = "<xs:schema attributeFormDefault=\"unqualified\" elementFormDefault=\"qualified\" targetNamespace=\"http://schemas.datacontract.org/2004/07/model\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"><xs:element name=\"User\"><xs:complexType><xs:sequence><xs:element type=\"xs:string\" name=\"ID\"/><xs:element type=\"xs:string\" name=\"Username\"/><xs:element type=\"xs:string\" name=\"PasswordHash\"/><xs:element name=\"Images\"><xs:complexType><xs:sequence><xs:element name=\"Image\" maxOccurs=\"unbounded\" minOccurs=\"0\"><xs:complexType><xs:sequence><xs:element type=\"xs:string\" name=\"ResourceTitle\"/><xs:element type=\"xs:string\" name=\"ResourceURL\"/><xs:element type=\"xs:string\" name=\"IsFavorite\"/></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:schema>";
         private XmlSchemaSet schemas = new XmlSchemaSet();
 
         [HttpPost("xsd")]
@@ -90,7 +88,7 @@ namespace api.Controllers
 
         private void SetupXsdValidator()
         {
-            schemas.Add("http://schemas.datacontract.org/2004/07/model", XmlReader.Create(new StringReader(XSD)));
+            schemas.Add("http://schemas.datacontract.org/2004/07/model", XmlReader.Create(new StringReader(model.User.XSD)));
         }
 
         [HttpDelete]

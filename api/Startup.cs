@@ -103,13 +103,5 @@ namespace api
             channel.QueueDeclare(channelName, exclusive: false);
             return channel;
         }
-        private static IModel CreateRabbitMQChannel()
-        {
-            var factory = new ConnectionFactory { HostName = "dev-lcabraja" };
-            var connection = factory.CreateConnection();
-            var channel = connection.CreateModel();
-            channel.QueueDeclare("users", durable: false, autoDelete: false);
-            return channel;
-        }
     }
 }
