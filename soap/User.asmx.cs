@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Services;
+using System.Xml;
 
 namespace soap
 {
@@ -29,7 +30,6 @@ namespace soap
         private string MakeRequest(string userid)
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create($"http://localhost:5050/api/User/{userid}");
-            
             req.Accept = "application/xml";
             req.Headers.Add("Authorization", "Basic " + soapUserCredentials);
             // access req.Headers to get/set header values before calling GetResponse. 
@@ -40,6 +40,12 @@ namespace soap
             using (var strm = new StreamReader(response.GetResponseStream()))
             {
                 webcontent = strm.ReadToEnd();
+
+                var dom = new XmlDocument();
+                dom.LoadXml(webcontent);
+                var mgr = new XmlNamespaceManager(dom.NameTable);
+                mgr.AddNamespace("x", "http://www.w3.org/1999/xhtml");
+                var res = dom.SelectNodes($"//User[ID='{userid}']", mgr);
                 return webcontent;
             }
         }
