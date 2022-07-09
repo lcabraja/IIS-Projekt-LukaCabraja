@@ -22,8 +22,6 @@ namespace soap
     // [System.Web.Script.Services.ScriptService]
     public class User : System.Web.Services.WebService
     {
-        private string soapUserCredentials = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes("soapuser" + ":" + "soappassword"));
-
         [WebMethod]
         public string GetUserBy(string id) => MakeRequest(id);
 
