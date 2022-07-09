@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using api.Model;
 using api.Auth;
+using validator;
+using System.Xml.Linq;
 
 namespace api.Controllers
 {
@@ -44,6 +46,21 @@ namespace api.Controllers
                 users.Add(user);
                 Response.StatusCode = 201;
             }
+        }
+
+        private static readonly string RNG = "<element name=\"User\" xmlns=\"http://relaxng.org/ns/structure/1.0\" datatypeLibrary=\"http://www.w3.org/2001/XMLSchema-datatypes\" ns=\"http://schemas.datacontract.org/2004/07/model\"><element name=\"ID\"><text /></element><element name=\"Username\"><text /></element><element name=\"PasswordHash\"><text /></element><element name=\"Images\"><zeroOrMore><element name=\"Image\"><element name=\"ResourceTitle\"><text /></element><element name=\"ResourceURL\"><text /></element><element name=\"IsFavorite\"><text /></element></element></zeroOrMore></element></element>";
+        private Validator _validator = new("", RNG);
+
+        [HttpPost("rng")]
+        public string ValidateRNG([FromBody] XElement xmldata)
+        {
+            _validator.SetInstance(xmldata.ToString());
+            if (string.IsNullOrEmpty(_validator.FirstError))
+            {
+                Response.StatusCode = 400;
+                return _validator.FirstError;
+            }
+            return null;
         }
 
         [HttpDelete]

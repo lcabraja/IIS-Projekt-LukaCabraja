@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\model\model.csproj" />
+    <ProjectReference Include="..\validator\validator.csproj" />
   </ItemGroup>
 
 </Project>

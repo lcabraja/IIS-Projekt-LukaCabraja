@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32616.157
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "frontend", "frontend\frontend.csproj", "{4BBF56CB-4EB4-4B28-976D-82AD6996A997}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "model", "model\model.csproj", "{129F8599-9108-43F4-A624-1D1117E1E9C7}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "xml-rpc", "xml-rpc\xml-rpc.njsproj", "{27C8464F-627C-465F-BE79-CC8519E0047D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "validator", "validator\validator.csproj", "{B1B02A71-0D2D-4911-B671-A2ED1493BEBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{27C8464F-627C-465F-BE79-CC8519E0047D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27C8464F-627C-465F-BE79-CC8519E0047D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27C8464F-627C-465F-BE79-CC8519E0047D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1B02A71-0D2D-4911-B671-A2ED1493BEBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1B02A71-0D2D-4911-B671-A2ED1493BEBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1B02A71-0D2D-4911-B671-A2ED1493BEBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1B02A71-0D2D-4911-B671-A2ED1493BEBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
