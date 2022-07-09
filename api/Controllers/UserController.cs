@@ -6,6 +6,10 @@ using api.Model;
 using api.Auth;
 using validator;
 using System.Xml.Linq;
+using System.Xml.Schema;
+using System;
+using System.Xml;
+using System.IO;
 
 namespace api.Controllers
 {
@@ -21,15 +25,17 @@ namespace api.Controllers
         {
             this.users = users;
             this.jwtAuth = jwtAuth;
+
+            SetupXsdValidator();
         }
 
         [HttpGet]
-        public List<User> Get() 
+        public List<User> Get()
             => users.GetRange(0, System.Math.Min(50, users.Count));
 
         [AllowAnonymous]
         [HttpGet("{userid}")]
-        public User Get(string userid) 
+        public User Get(string userid)
             => users.Find(u => u.ID.Equals(userid));
 
         [HttpPost]
@@ -52,15 +58,44 @@ namespace api.Controllers
         private Validator _validator = new("", RNG);
 
         [HttpPost("rng")]
-        public string ValidateRNG([FromBody] XElement xmldata)
+        public string ValidateAgainstRNG([FromBody] XElement xmldata)
         {
             _validator.SetInstance(xmldata.ToString());
-            if (string.IsNullOrEmpty(_validator.FirstError))
+            if (!string.IsNullOrEmpty(_validator.FirstError))
             {
                 Response.StatusCode = 400;
                 return _validator.FirstError;
             }
             return null;
+        }
+
+        private static readonly string XSD = "<xs:schema attributeFormDefault=\"unqualified\" elementFormDefault=\"qualified\" targetNamespace=\"http://schemas.datacontract.org/2004/07/model\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"><xs:element name=\"User\"><xs:complexType><xs:sequence><xs:element type=\"xs:string\" name=\"ID\"/><xs:element type=\"xs:string\" name=\"Username\"/><xs:element type=\"xs:string\" name=\"PasswordHash\"/><xs:element name=\"Images\"><xs:complexType><xs:sequence><xs:element name=\"Image\" maxOccurs=\"unbounded\" minOccurs=\"0\"><xs:complexType><xs:sequence><xs:element type=\"xs:string\" name=\"ResourceTitle\"/><xs:element type=\"xs:string\" name=\"ResourceURL\"/><xs:element type=\"xs:string\" name=\"IsFavorite\"/></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:schema>";
+        private XmlSchemaSet schemas = new XmlSchemaSet();
+
+        [HttpPost("xsd")]
+        public string ValidateAgainstXSD([FromBody] XElement xmldata)
+        {
+            XDocument xmldoc = new XDocument(xmldata);
+
+            bool hasErrors = false;
+            string errorMessage = "";
+            xmldoc.Validate(schemas, (o, e) =>
+            {
+                errorMessage = e.Message;
+                hasErrors = true;
+            });
+
+            if (hasErrors)
+            {
+                Response.StatusCode = 400;
+                return errorMessage;
+            }
+            return null;
+        }
+
+        private void SetupXsdValidator()
+        {
+            schemas.Add("http://schemas.datacontract.org/2004/07/model", XmlReader.Create(new StringReader(XSD)));
         }
 
         [HttpDelete]
