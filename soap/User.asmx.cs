@@ -27,11 +27,35 @@ namespace soap
         [WebMethod]
         public string GetUserBy(string id) => MakeRequest(id);
 
+        private string GetJWT()
+        {
+            HttpWebRequest auth = (HttpWebRequest)WebRequest.Create("http://localhost:5050/api/User/authentication");
+            string postData = "{\"username\":\"lcabraja\",\"password\":\"1234567890\"}";
+            auth.Method = "POST";
+            auth.ContentType = "application/json";
+
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] bytes = encoding.GetBytes(postData);
+            auth.ContentLength = bytes.Length;
+
+            Stream newStream = auth.GetRequestStream();
+            newStream.Write(bytes, 0, bytes.Length);
+            newStream.Close();
+
+            var response = auth.GetResponse();
+            string webcontent = null;
+            using (var strm = new StreamReader(response.GetResponseStream()))
+            {
+                webcontent = strm.ReadToEnd();
+            }
+            return webcontent;
+        }
+
         private string MakeRequest(string userid)
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create($"http://localhost:5050/api/User/{userid}");
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create("http://localhost:5050/api/User/");
             req.Accept = "application/xml";
-            req.Headers.Add("Authorization", "Basic " + soapUserCredentials);
+            req.Headers.Add("Authorization", "Bearer " + GetJWT());
             // access req.Headers to get/set header values before calling GetResponse. 
             // req.CookieContainer allows you access cookies.
 
@@ -41,15 +65,20 @@ namespace soap
             {
                 webcontent = strm.ReadToEnd();
 
-                var dom = new XmlDocument();
-                dom.LoadXml(webcontent);
-                var mgr = new XmlNamespaceManager(dom.NameTable);
-                mgr.AddNamespace("x", "http://www.w3.org/1999/xhtml");
-                var res = dom.SelectNodes($"//User[ID='{userid}']", mgr);
-                return webcontent;
+                var doc = new XmlDocument();
+                doc.LoadXml(webcontent);
+                XmlNode root = doc.DocumentElement;
+
+
+                XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
+                nsmgr.AddNamespace("i", "http://www.w3.org/2001/XMLSchema-instance");
+                nsmgr.AddNamespace("us", "http://schemas.datacontract.org/2004/07/model");
+
+                XmlNode node = root.SelectSingleNode("descendant::us:User[us:ID='lcabraja-id']", nsmgr);
+                return node?.OuterXml;
             }
         }
-    }
+    }   
 }
 
 
