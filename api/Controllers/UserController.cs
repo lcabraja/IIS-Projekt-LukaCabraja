@@ -10,6 +10,7 @@ using System.Xml.Schema;
 using System;
 using System.Xml;
 using System.IO;
+using RabbitMQ.Client;
 
 namespace api.Controllers
 {
@@ -18,11 +19,13 @@ namespace api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private IModel rabbitChannel;
         private List<User> users;
         private readonly IJwtAuth jwtAuth;
 
-        public UserController(List<User> users, IJwtAuth jwtAuth)
+        public UserController(IModel rabbitChannel, List<User> users, IJwtAuth jwtAuth)
         {
+            this.rabbitChannel = rabbitChannel;
             this.users = users;
             this.jwtAuth = jwtAuth;
 
@@ -138,6 +141,7 @@ namespace api.Controllers
                 users.Add(user);
                 Response.StatusCode = 201;
             }
+            RabbitClient.SendMessage(rabbitChannel, user);
         }
     }
 }

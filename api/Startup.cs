@@ -11,17 +11,20 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using api.Auth;
+using RabbitMQ.Client;
 
 namespace api
 {
     public class Startup
     {
+        private IModel rabbitChannel;
         private List<User> users;
         private const string encriptionKey = "MFMCAQEwBQYDK2VwBCIEIJtjfw1TZqX4nkEcT9FhmCa23J9QEmnblvPNmxXl6oDSoSMDIQBmBAUJ2cQs238elOEWGhTKU+mYyiUedCaHAZm9N1P67g==";
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
             users = MockData.Generate();
+            Configuration = configuration;
+            rabbitChannel = CreateRabbitMQChannel("users");
         }
 
         public IConfiguration Configuration { get; }
@@ -39,6 +42,7 @@ namespace api
                     opts.ReturnHttpNotAcceptable = true;
                 });
             services.AddSingleton(users);
+            services.AddSingleton(rabbitChannel);
             services.AddSingleton<IJwtAuth>(new api.Auth.Auth(encriptionKey));
 
             services.AddAuthentication(x =>
@@ -89,6 +93,23 @@ namespace api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static IModel CreateRabbitMQChannel(string channelName)
+        {
+            var factory = new ConnectionFactory { HostName = "dev-lcabraja" };
+            var connection = factory.CreateConnection();
+            var channel = connection.CreateModel();
+            channel.QueueDeclare(channelName, exclusive: false);
+            return channel;
+        }
+        private static IModel CreateRabbitMQChannel()
+        {
+            var factory = new ConnectionFactory { HostName = "dev-lcabraja" };
+            var connection = factory.CreateConnection();
+            var channel = connection.CreateModel();
+            channel.QueueDeclare("users", durable: false, autoDelete: false);
+            return channel;
         }
     }
 }

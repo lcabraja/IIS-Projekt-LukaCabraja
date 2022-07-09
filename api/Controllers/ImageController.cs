@@ -1,6 +1,7 @@
 ﻿using model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using RabbitMQ.Client;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,10 +11,12 @@ namespace api.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
+        private IModel rabbitChannel;
         private List<User> users;
 
-        public ImageController(List<User> users)
+        public ImageController(IModel rabbitChannel, List<User> users)
         {
+            this.rabbitChannel = rabbitChannel;
             this.users = users;
         }
 
@@ -42,6 +45,7 @@ namespace api.Controllers
                     user.Images.Add(image);
                 }
                 Response.StatusCode = 201;
+                RabbitClient.SendMessage(rabbitChannel, user);
             }
             else
             {
