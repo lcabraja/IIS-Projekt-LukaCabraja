@@ -29,138 +29,137 @@ namespace frontend
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnExecuteSoapRequest = new System.Windows.Forms.Button();
-            this.soapBox = new System.Windows.Forms.TextBox();
-            this.restBox = new System.Windows.Forms.TextBox();
-            this.btnExecuteRestRequest = new System.Windows.Forms.Button();
-            this.cbRestContentType = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnTask1 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.tbRestQuery = new System.Windows.Forms.TextBox();
-            this.cbRestFunction = new System.Windows.Forms.ComboBox();
-            this.tbRestBody = new System.Windows.Forms.TextBox();
-            this.tbSoapParameter = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnExecuteSoapRequest
+            // tabControl1
             // 
-            this.btnExecuteSoapRequest.Location = new System.Drawing.Point(13, 12);
-            this.btnExecuteSoapRequest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnExecuteSoapRequest.Name = "btnExecuteSoapRequest";
-            this.btnExecuteSoapRequest.Size = new System.Drawing.Size(85, 52);
-            this.btnExecuteSoapRequest.TabIndex = 0;
-            this.btnExecuteSoapRequest.Text = "SOAP";
-            this.btnExecuteSoapRequest.UseVisualStyleBackColor = true;
-            this.btnExecuteSoapRequest.Click += new System.EventHandler(this.BtnExecuteSoapRequest_Click);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(933, 519);
+            this.tabControl1.TabIndex = 0;
             // 
-            // soapBox
+            // tabPage1
             // 
-            this.soapBox.Location = new System.Drawing.Point(106, 12);
-            this.soapBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.soapBox.Multiline = true;
-            this.soapBox.Name = "soapBox";
-            this.soapBox.ReadOnly = true;
-            this.soapBox.Size = new System.Drawing.Size(162, 52);
-            this.soapBox.TabIndex = 1;
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.tabPage1.Controls.Add(this.btnTask1);
+            this.tabPage1.Controls.Add(this.textBox2);
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(925, 491);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Zadatak 1";
             // 
-            // restBox
+            // btnTask1
             // 
-            this.restBox.Location = new System.Drawing.Point(106, 70);
-            this.restBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.restBox.Multiline = true;
-            this.restBox.Name = "restBox";
-            this.restBox.ReadOnly = true;
-            this.restBox.Size = new System.Drawing.Size(162, 52);
-            this.restBox.TabIndex = 2;
-            // 
-            // btnExecuteRestRequest
-            // 
-            this.btnExecuteRestRequest.Location = new System.Drawing.Point(13, 70);
-            this.btnExecuteRestRequest.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnExecuteRestRequest.Name = "btnExecuteRestRequest";
-            this.btnExecuteRestRequest.Size = new System.Drawing.Size(85, 52);
-            this.btnExecuteRestRequest.TabIndex = 3;
-            this.btnExecuteRestRequest.Text = "REST";
-            this.btnExecuteRestRequest.UseVisualStyleBackColor = true;
-            this.btnExecuteRestRequest.Click += new System.EventHandler(this.BtnExecuteRestRequest_Click);
-            // 
-            // cbRestContentType
-            // 
-            this.cbRestContentType.DisplayMember = "application/json";
-            this.cbRestContentType.FormattingEnabled = true;
-            this.cbRestContentType.Items.AddRange(new object[] {
-            "application/json",
-            "application/xml",
-            "text/json",
-            "text/xml"});
-            this.cbRestContentType.Location = new System.Drawing.Point(390, 70);
-            this.cbRestContentType.Name = "cbRestContentType";
-            this.cbRestContentType.Size = new System.Drawing.Size(154, 23);
-            this.cbRestContentType.TabIndex = 4;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(276, 70);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(107, 23);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.Text = "Content Type";
+            this.btnTask1.Location = new System.Drawing.Point(6, 29);
+            this.btnTask1.Name = "btnTask1";
+            this.btnTask1.Size = new System.Drawing.Size(78, 48);
+            this.btnTask1.TabIndex = 2;
+            this.btnTask1.Text = "POST";
+            this.btnTask1.UseVisualStyleBackColor = true;
+            this.btnTask1.Click += new System.EventHandler(this.btnTask1_Click);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(276, 99);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(467, 29);
+            this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(107, 23);
-            this.textBox2.TabIndex = 6;
-            this.textBox2.Text = "Function";
+            this.textBox2.Size = new System.Drawing.Size(363, 454);
+            this.textBox2.TabIndex = 1;
             // 
-            // tbRestQuery
+            // textBox1
             // 
-            this.tbRestQuery.Enabled = false;
-            this.tbRestQuery.Location = new System.Drawing.Point(551, 99);
-            this.tbRestQuery.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tbRestQuery.Multiline = true;
-            this.tbRestQuery.Name = "tbRestQuery";
-            this.tbRestQuery.ReadOnly = true;
-            this.tbRestQuery.Size = new System.Drawing.Size(369, 23);
-            this.tbRestQuery.TabIndex = 7;
-            this.tbRestQuery.Text = "Query Parameter";
+            this.textBox1.Location = new System.Drawing.Point(90, 29);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(363, 456);
+            this.textBox1.TabIndex = 0;
             // 
-            // cbRestFunction
+            // tabPage2
             // 
-            this.cbRestFunction.FormattingEnabled = true;
-            this.cbRestFunction.Location = new System.Drawing.Point(390, 99);
-            this.cbRestFunction.Name = "cbRestFunction";
-            this.cbRestFunction.Size = new System.Drawing.Size(154, 23);
-            this.cbRestFunction.TabIndex = 8;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(925, 491);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Zadatak 2";
             // 
-            // tbRestBody
+            // tabPage3
             // 
-            this.tbRestBody.Enabled = false;
-            this.tbRestBody.Location = new System.Drawing.Point(551, 128);
-            this.tbRestBody.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tbRestBody.Multiline = true;
-            this.tbRestBody.Name = "tbRestBody";
-            this.tbRestBody.ReadOnly = true;
-            this.tbRestBody.Size = new System.Drawing.Size(369, 210);
-            this.tbRestBody.TabIndex = 9;
-            this.tbRestBody.Text = "Body";
+            this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(925, 491);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Zadatak 3";
             // 
-            // tbSoapParameter
+            // tabPage4
             // 
-            this.tbSoapParameter.Enabled = false;
-            this.tbSoapParameter.Location = new System.Drawing.Point(551, 12);
-            this.tbSoapParameter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tbSoapParameter.Multiline = true;
-            this.tbSoapParameter.Name = "tbSoapParameter";
-            this.tbSoapParameter.ReadOnly = true;
-            this.tbSoapParameter.Size = new System.Drawing.Size(369, 23);
-            this.tbSoapParameter.TabIndex = 10;
-            this.tbSoapParameter.Text = "Soap Parameter";
+            this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(925, 491);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Zadatak 4";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(925, 491);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Zadatak 5";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(925, 491);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Zadatak 6";
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.tabPage7.Location = new System.Drawing.Point(4, 24);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(925, 491);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Zadatak 7";
             // 
             // MainForm
             // 
@@ -168,40 +167,31 @@ namespace frontend
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(20)))), ((int)(((byte)(48)))));
             this.ClientSize = new System.Drawing.Size(933, 519);
-            this.Controls.Add(this.tbSoapParameter);
-            this.Controls.Add(this.tbRestBody);
-            this.Controls.Add(this.cbRestFunction);
-            this.Controls.Add(this.tbRestQuery);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.cbRestContentType);
-            this.Controls.Add(this.btnExecuteRestRequest);
-            this.Controls.Add(this.restBox);
-            this.Controls.Add(this.soapBox);
-            this.Controls.Add(this.btnExecuteSoapRequest);
+            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainForm";
             this.Text = "Visual Studio Stockholm Syndrome Generator [v0.1]";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnExecuteSoapRequest;
-        private System.Windows.Forms.TextBox soapBox;
-        private TextBox restBox;
-        private Button btnExecuteRestRequest;
-        private ComboBox cbRestContentType;
-        private TextBox textBox1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TabPage tabPage3;
+        private TabPage tabPage4;
+        private TabPage tabPage5;
+        private TabPage tabPage6;
+        private TabPage tabPage7;
+        private Button btnTask1;
         private TextBox textBox2;
-        private TextBox tbRestQuery;
-        private ComboBox cbRestFunction;
-        private TextBox tbRestBody;
-        private TextBox tbSoapParameter;
+        private TextBox textBox1;
     }
 }
 

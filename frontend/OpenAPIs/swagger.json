@@ -344,6 +344,198 @@
           }
         }
       }
+    },
+    "/api/User/rng": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/xsd": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/XElement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/User/authentication": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCredential"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCredential"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCredential"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCredential"
+              }
+            },
+            "text/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCredential"
+              }
+            },
+            "application/*+xml": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCredential"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -385,6 +577,295 @@
             "items": {
               "$ref": "#/components/schemas/Image"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "XmlNodeType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "XNode": {
+        "type": "object",
+        "properties": {
+          "baseUri": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "document": {
+            "$ref": "#/components/schemas/XDocument"
+          },
+          "nodeType": {
+            "$ref": "#/components/schemas/XmlNodeType"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/XElement"
+          },
+          "nextNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "previousNode": {
+            "$ref": "#/components/schemas/XNode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "XDeclaration": {
+        "type": "object",
+        "properties": {
+          "encoding": {
+            "type": "string",
+            "nullable": true
+          },
+          "standalone": {
+            "type": "string",
+            "nullable": true
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "XDocumentType": {
+        "type": "object",
+        "properties": {
+          "baseUri": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "document": {
+            "$ref": "#/components/schemas/XDocument"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/XElement"
+          },
+          "nextNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "previousNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "internalSubset": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nodeType": {
+            "$ref": "#/components/schemas/XmlNodeType"
+          },
+          "publicId": {
+            "type": "string",
+            "nullable": true
+          },
+          "systemId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "XDocument": {
+        "type": "object",
+        "properties": {
+          "baseUri": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "document": {
+            "$ref": "#/components/schemas/XDocument"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/XElement"
+          },
+          "nextNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "previousNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "firstNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "lastNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "declaration": {
+            "$ref": "#/components/schemas/XDeclaration"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/XDocumentType"
+          },
+          "nodeType": {
+            "$ref": "#/components/schemas/XmlNodeType"
+          },
+          "root": {
+            "$ref": "#/components/schemas/XElement"
+          }
+        },
+        "additionalProperties": false
+      },
+      "XNamespace": {
+        "type": "object",
+        "properties": {
+          "namespaceName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "XName": {
+        "type": "object",
+        "properties": {
+          "localName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "namespace": {
+            "$ref": "#/components/schemas/XNamespace"
+          },
+          "namespaceName": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "XAttribute": {
+        "type": "object",
+        "properties": {
+          "baseUri": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "document": {
+            "$ref": "#/components/schemas/XDocument"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/XElement"
+          },
+          "isNamespaceDeclaration": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "name": {
+            "$ref": "#/components/schemas/XName"
+          },
+          "nextAttribute": {
+            "$ref": "#/components/schemas/XAttribute"
+          },
+          "nodeType": {
+            "$ref": "#/components/schemas/XmlNodeType"
+          },
+          "previousAttribute": {
+            "$ref": "#/components/schemas/XAttribute"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "XElement": {
+        "type": "object",
+        "properties": {
+          "baseUri": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "document": {
+            "$ref": "#/components/schemas/XDocument"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/XElement"
+          },
+          "nextNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "previousNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "firstNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "lastNode": {
+            "$ref": "#/components/schemas/XNode"
+          },
+          "firstAttribute": {
+            "$ref": "#/components/schemas/XAttribute"
+          },
+          "hasAttributes": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasElements": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "isEmpty": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "lastAttribute": {
+            "$ref": "#/components/schemas/XAttribute"
+          },
+          "name": {
+            "$ref": "#/components/schemas/XName"
+          },
+          "nodeType": {
+            "$ref": "#/components/schemas/XmlNodeType"
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserCredential": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
             "nullable": true
           }
         },
