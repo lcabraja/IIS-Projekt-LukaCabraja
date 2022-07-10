@@ -15,7 +15,7 @@ const config = {
 }
 
 const nodeToObject = (node) => {
-    const str = pruneXml(xmlSerializer.serializeToString(nodes[0]));
+    const str = pruneXml(xmlSerializer.serializeToString(node));
     const json = parser.toJson(str);
     const result = JSON.parse(json);
     return result;
@@ -27,7 +27,7 @@ const pruneXml = (str) =>
 const findCityByName = (doc, city) => {
     const xpathcitybyname = `//Grad[GradIme='${city}']`;
     const nodes = select(xpathcitybyname, doc);
-    return nodeToObject(nodes[0]);
+    return nodes.length > 0 ? nodeToObject(nodes[0]) : null;
 }
 
 const findFirstCity = (doc) => {
